@@ -1,0 +1,73 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# --- Virtual env / uv ---
+.venv/
+venv/
+uv.lock
+.uv/
+
+# --- Environment ---
+.env
+.env.*
+!.env.example
+
+# --- Bytecode cache ---
+.pytest_cache/
+__pypackages__/
+
+# --- Logs ---
+*.log
+logs/
+log/
+*.out
+
+# --- IDE stuff ---
+.idea/
+*.iml
+.vscode/
+.vscode/*
+*.swp
+*.swo
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Coverage ---
+.coverage
+coverage.xml
+htmlcov/
+
+# --- Build ---
+build/
+dist/
+*.egg-info/
+*.egg
+
+# --- Docker ---
+docker-data/
+docker-compose.override.yml
+
+# --- Database ---
+*.db
+*.sqlite
+*.sqlite3
+pg_data/
+postgres-data/
+
+# --- Cache ---
+cache/
+.cache/
+aiogram_state/
+
+# --- Project specific ---
+# generated docs or templates
+generated/
+documents/
+tmp/
+temp/
