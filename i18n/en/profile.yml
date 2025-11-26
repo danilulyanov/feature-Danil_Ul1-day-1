@@ -55,7 +55,7 @@ profile:
   llm_delete_warning: 'Failed to delete message with LLM settings.'
   llm_menu: "<b>LLM Settings</b>\nModel: {model}\nBase URL: {base_url}\nAPI Key: {api_key}"
   llm_menu_empty: "<b>LLM Settings</b>\nNot configured yet. Tap Edit to add them."
-  preferences_view: "Language: {language}\nVacancy delivery time: {vacancy_time}"
+  preferences_view: "Language: {language}\nVacancy delivery time: {vacancy_time}\nTimezone: {timezone}"
   preferences_lang_prompt: 'Choose bot language:'
   preferences_lang_saved: 'Language updated to {language}.'
   preferences_lang_invalid: 'Unsupported language.'
@@ -63,6 +63,14 @@ profile:
   preferences_schedule_invalid: "Time must be in HH:MM (00:00–23:59). Try again or send 'clear'."
   preferences_schedule_saved: 'Delivery time saved: {time}.'
   preferences_schedule_cleared: 'Delivery time removed.'
+  preferences_timezone_prompt: "Send your timezone (IANA, e.g., Europe/Moscow). 'clear' to remove and use default."
+  preferences_timezone_invalid: "Timezone must be a valid IANA zone (e.g., Europe/London)."
+  preferences_timezone_saved: 'Timezone saved: {timezone}.'
+  preferences_timezone_cleared: 'Timezone removed. Default will be used.'
+  preferences_schedule_info: "<b>Daily delivery</b>\nTime: {time}\nTimezone: {timezone}\nLast search: {query}\nLast sent: {last_sent}"
+  preferences_schedule_info_empty: "Delivery time is not set. Set it in Preferences to get daily vacancies."
+  preferences_schedule_test_success: 'Test delivery sent.'
+  preferences_schedule_test_fail: 'Could not send test delivery. Make sure you have a search query and delivery time.'
   search_filters:
     min_salary: '- Min salary: {value}'
     remote: '- Remote only: {state}'
@@ -90,6 +98,7 @@ profile:
     back: '⬅️ Back'
     change_language: '🌐 Change language'
     schedule_time: '⏰ Delivery time'
+    timezone: '🌍 Timezone'
     edit_city: '🏙️ Edit City'
     edit_position: '🎯 Edit Position'
     edit_name: '🪪 Edit Name'

@@ -41,7 +41,7 @@ async def on_startup(bot: Bot):
 
     # Scheduler
     try:
-        await setup_scheduler()
+        await setup_scheduler(bot)
         logger.info("Scheduler started")
     except Exception as e:
         logger.error(f"Scheduler init failed: {e}")

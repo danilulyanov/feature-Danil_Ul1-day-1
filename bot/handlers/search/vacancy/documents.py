@@ -141,7 +141,7 @@ async def vacancy_cv_handler(callback: CallbackQuery):
             return
 
         messages = doc_meta["prompt_builder"](vacancy, user_resume, user_skills, user_prompt, lang)
-        await safe_answer(callback, text=t(doc_meta["generating_key"], lang), show_alert=False)
+        generating_msg = await callback.message.answer(t(doc_meta["generating_key"], lang))
         doc_text = await openai_service.chat_completion(
             messages,
             model=openai_service.settings.LLM_MODEL,
@@ -174,16 +174,26 @@ async def vacancy_cv_handler(callback: CallbackQuery):
                 logger.error(f"Failed to cache doc type={int(doc_type)} for user {user_db_id}: {e}")
 
         header, _ = format_document_header(vacancy, lang, doc_type)
-        await callback.message.answer(
-            f"{header}\n\n{doc_text}",
-            disable_web_page_preview=True,
-            parse_mode="HTML",
-        )
+        try:
+            await generating_msg.edit_text(
+                f"{header}\n\n{doc_text}",
+                disable_web_page_preview=True,
+                parse_mode="HTML",
+            )
+        except Exception:
+            await callback.message.answer(
+                f"{header}\n\n{doc_text}",
+                disable_web_page_preview=True,
+                parse_mode="HTML",
+            )
     except ValueError:
         await safe_answer(callback, text=t("search.vacancy_detail.invalid_request", lang), show_alert=True)
     except Exception as e:
         logger.error(f"Failed to handle document generation for user {user_id}: {e}")
-        await safe_answer(callback, text=t(doc_meta["failed_key"], lang), show_alert=True)
+        try:
+            await callback.message.answer(t(doc_meta["failed_key"], lang))
+        except Exception:
+            await safe_answer(callback, text=t(doc_meta["failed_key"], lang), show_alert=True)
     finally:
         try:
             if db_session:

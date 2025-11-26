@@ -146,6 +146,12 @@ def preferences_keyboard(has_prompt: bool, lang: str) -> InlineKeyboardMarkup:
             ],
             [
                 InlineKeyboardButton(
+                    text=t("profile.buttons.timezone", lang),
+                    callback_data="prefs_timezone",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
                     text=t("profile.buttons.change_language", lang),
                     callback_data="prefs_lang_menu",
                 ),

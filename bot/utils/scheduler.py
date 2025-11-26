@@ -1,6 +1,7 @@
 from collections.abc import Callable
 from datetime import datetime
 
+from aiogram import Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
@@ -47,16 +48,16 @@ class BotScheduler:
         trigger: CronTrigger,
         job_id: str,
         job_name: str = None,
-        *args,
-        **kwargs,
+        job_args: list | tuple | None = None,
+        job_kwargs: dict | None = None,
     ):
         """Add a job to the scheduler with comprehensive logging"""
         try:
             job = self.scheduler.add_job(
                 func,
                 trigger,
-                args=args,
-                kwargs=kwargs,
+                args=job_args or [],
+                kwargs=job_kwargs or {},
                 id=job_id,
                 name=job_name or job_id,
             )
@@ -107,20 +108,26 @@ class BotScheduler:
 bot_scheduler = BotScheduler()
 
 
-async def setup_scheduler():
+async def setup_scheduler(bot: Bot | None = None):
     """Setup the scheduler with logging"""
     try:
         bot_scheduler.start()
         scheduler_logger.info("Scheduler setup completed successfully")
 
-        # Example job - can be removed or modified based on requirements
-        # from apscheduler.triggers.cron import CronTrigger
-        # bot_scheduler.add_job(
-        #     example_task,
-        #     CronTrigger(minute='*/30'),  # Every 30 minutes
-        #     job_id='health_check',
-        #     job_name='Health Check Task'
-        # )
+        if bot:
+            try:
+                from bot.tasks.vacancy_delivery import run_daily_vacancies
+
+                bot_scheduler.add_job(
+                    run_daily_vacancies,
+                    CronTrigger(minute="*"),
+                    job_id="daily_vacancies",
+                    job_name="Daily Vacancy Delivery",
+                    job_args=[bot],
+                )
+                scheduler_logger.info("Daily vacancy delivery job registered")
+            except Exception as e:
+                scheduler_logger.error(f"Failed to register daily vacancy job: {e}")
 
         return True
     except Exception as e:

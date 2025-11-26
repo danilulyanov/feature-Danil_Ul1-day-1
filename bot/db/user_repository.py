@@ -127,6 +127,22 @@ class UserRepository:
             await self.session.rollback()
             raise
 
+    async def get_users_for_schedule(self, time_str: str) -> list[User]:
+        """Return active users whose preferences.vacancy_schedule_time matches HH:MM."""
+        try:
+            stmt = (
+                select(User)
+                .where(User.is_active.is_(True))
+                .where(User.preferences["vacancy_schedule_time"].as_string() == time_str)
+            )
+            result = await self.session.execute(stmt)
+            users = list(result.scalars().all())
+            self.logger.debug(f"Found {len(users)} users scheduled at {time_str}")
+            return users
+        except Exception as e:
+            self.logger.error(f"Error fetching users for schedule {time_str}: {e}")
+            return []
+
     async def update_language_code(self, tg_user_id: str, language_code: str) -> bool:
         try:
             stmt = update(User).where(User.tg_user_id == tg_user_id).values(language_code=language_code)
@@ -247,3 +263,20 @@ class UserRepository:
             self.logger.error(f"Error updating search filters for user {tg_user_id}: {e}")
             await self.session.rollback()
             raise
+
+    async def get_users_with_schedule(self) -> list[User]:
+        """Return active users that have vacancy_schedule_time set."""
+        try:
+            stmt = (
+                select(User)
+                .where(User.is_active.is_(True))
+                .where(User.preferences["vacancy_schedule_time"].isnot(None))
+            )
+            result = await self.session.execute(stmt)
+            users = list(result.scalars().all())
+            if users:
+                self.logger.debug(f"Found {len(users)} users with schedule set")
+            return users
+        except Exception as e:
+            self.logger.error(f"Error fetching users with schedule: {e}")
+            return []
