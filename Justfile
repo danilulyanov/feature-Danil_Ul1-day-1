@@ -34,3 +34,7 @@ run:
 		uv sync; \
 		uv run main.py; \
 	fi
+
+# Count Python files and total lines
+stat:
+	@python tools/stat.py
