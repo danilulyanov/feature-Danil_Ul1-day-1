@@ -168,6 +168,20 @@ def skills_keyboard(lang: str) -> InlineKeyboardMarkup:
     )
 
 
+def llm_keyboard(lang: str) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text=t("profile.buttons.llm_edit", lang),
+                    callback_data="llm_edit",
+                )
+            ],
+            [InlineKeyboardButton(text=t("profile.buttons.back_profile", lang), callback_data="llm_back_profile")],
+        ]
+    )
+
+
 def profile_keyboard(lang: str, skills_count: int = 0, skills_preview: str | None = None) -> InlineKeyboardMarkup:
     skills_button_label = t("profile.buttons.skills_menu", lang)
     return InlineKeyboardMarkup(
@@ -190,7 +204,7 @@ def profile_keyboard(lang: str, skills_count: int = 0, skills_preview: str | Non
                 ),
                 InlineKeyboardButton(
                     text=t("profile.buttons.llm_settings", lang),
-                    callback_data="edit_llm",
+                    callback_data="llm_menu",
                 ),
             ],
             [
@@ -198,10 +212,7 @@ def profile_keyboard(lang: str, skills_count: int = 0, skills_preview: str | Non
                     text=t("profile.buttons.search_settings", lang),
                     callback_data="search_settings",
                 ),
-                InlineKeyboardButton(
-                    text=t("profile.buttons.preferences", lang),
-                    callback_data="prefs_menu",
-                ),
+                InlineKeyboardButton(text=t("profile.buttons.preferences", lang), callback_data="prefs_menu"),
             ],
         ]
     )

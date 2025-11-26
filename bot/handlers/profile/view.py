@@ -9,7 +9,7 @@ from bot.db.user_repository import UserRepository
 from bot.handlers.profile.keyboards import profile_keyboard
 from bot.utils.i18n import detect_lang, t
 from bot.utils.logging import get_logger
-from bot.utils.profile_helpers import build_skills_preview, format_search_filters, hide_key, short
+from bot.utils.profile_helpers import build_skills_preview, format_search_filters, short
 
 logger = get_logger(__name__)
 router = Router()
@@ -29,7 +29,6 @@ async def send_profile_view(tg_id: str, message_obj: types.Message):
         return
 
     prefs = user.preferences or {}
-    llm = prefs.get("llm_settings", {})
     search_filters = prefs.get("search_filters", {})
 
     city = html.escape(user.city) if user.city else "not set"
@@ -37,9 +36,6 @@ async def send_profile_view(tg_id: str, message_obj: types.Message):
     skills_list = prefs.get("skills", [])
     skills_count, skills_preview = build_skills_preview(skills_list)
     skills = f"{skills_count} ({html.escape(skills_preview)})" if skills_count else t("profile.not_set", lang)
-    llm_model = html.escape(llm.get("model")) if llm.get("model") else "not set"
-    llm_url = html.escape(llm.get("base_url")) if llm.get("base_url") else "not set"
-    llm_key = hide_key(llm.get("api_key"))
     username = f"@{html.escape(user.username)}" if user.username else "not set"
     name = f"{html.escape(user.first_name or '')} {html.escape(user.last_name or '')}".strip()
     search_filters_text = format_search_filters(search_filters, lang)
@@ -65,9 +61,6 @@ async def send_profile_view(tg_id: str, message_obj: types.Message):
         resume=short(prefs.get("resume"), lang),
         last_search=last_search,
         search_filters=search_filters_text,
-        llm_model=llm_model,
-        llm_url=llm_url,
-        llm_key=llm_key,
     )
 
     await message_obj.answer(text, parse_mode="HTML", reply_markup=profile_keyboard(lang, skills_count, skills_preview))

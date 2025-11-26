@@ -17,11 +17,6 @@ profile:
 
     <b>Search Settings:</b>
     {search_filters}
-
-    <b>LLM Settings:</b>
-    Model: {llm_model}
-    Base URL: {llm_url}
-    API Key: {llm_key}
   resume_header: '<b>Your Resume</b>'
   resume_missing: 'No resume saved yet. Use profile settings to add it.'
   edit_cancelled: 'Edit cancelled.'
@@ -56,6 +51,8 @@ profile:
   edit_llm_cleared: 'LLM settings removed.'
   edit_llm_updated: 'LLM settings updated.'
   llm_delete_warning: 'Failed to delete message with LLM settings.'
+  llm_menu: "<b>LLM Settings</b>\nModel: {model}\nBase URL: {base_url}\nAPI Key: {api_key}"
+  llm_menu_empty: "<b>LLM Settings</b>\nNot configured yet. Tap Edit to add them."
   preferences_view: 'Language: {language}'
   preferences_lang_prompt: 'Choose bot language:'
   preferences_lang_saved: 'Language updated to {language}.'
@@ -93,6 +90,7 @@ profile:
     edit_skills: '✏️ Edit Skills'
     edit_resume: '📄 Edit Resume'
     llm_settings: '🤖 LLM Settings'
+    llm_edit: '✏️ Edit LLM'
     search_settings: '🔎 Search Settings'
     preferences: '⚙️ Preferences'
   languages:
