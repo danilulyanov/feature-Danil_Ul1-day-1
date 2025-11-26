@@ -27,3 +27,4 @@ class EditSearchFilters(StatesGroup):
 
 class EditPreferences(StatesGroup):
     language = State()
+    schedule_time = State()

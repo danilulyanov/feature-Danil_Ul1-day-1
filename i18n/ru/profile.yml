@@ -55,10 +55,14 @@ profile:
   llm_delete_warning: 'Не удалось удалить сообщение с ключом LLM.'
   llm_menu: "<b>Настройки LLM</b>\nМодель: {model}\nBase URL: {base_url}\nAPI Key: {api_key}"
   llm_menu_empty: "<b>Настройки LLM</b>\nНе настроены. Нажми «Редактировать», чтобы добавить."
-  preferences_view: 'Язык бота: {language}'
+  preferences_view: "Язык бота: {language}\nВремя рассылки вакансий: {vacancy_time}"
   preferences_lang_prompt: 'Выбери язык бота:'
   preferences_lang_saved: 'Язык обновлён: {language}.'
   preferences_lang_invalid: 'Этот язык не поддерживается.'
+  preferences_schedule_prompt: "Во сколько присылать новые вакансии? Формат HH:MM (24ч). 'clear' — убрать."
+  preferences_schedule_invalid: "Время должно быть в формате HH:MM (00:00–23:59). Попробуй ещё раз или отправь 'clear'."
+  preferences_schedule_saved: 'Время доставки сохранено: {time}.'
+  preferences_schedule_cleared: 'Время доставки удалено.'
   search_filters:
     min_salary: '- Мин. зарплата: {value}'
     remote: '- Удалёнка: {state}'
@@ -85,6 +89,7 @@ profile:
     clear_experience: '🧹 Сбросить опыт'
     back: '⬅️ Назад'
     change_language: '🌐 Сменить язык'
+    schedule_time: '⏰ Время рассылки'
     edit_city: '🏙️ Город'
     edit_position: '🎯 Должность'
     edit_name: '🪪 Имя/Фамилия'

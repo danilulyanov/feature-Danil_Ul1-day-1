@@ -140,6 +140,12 @@ def preferences_keyboard(has_prompt: bool, lang: str) -> InlineKeyboardMarkup:
         inline_keyboard=[
             [
                 InlineKeyboardButton(
+                    text=t("profile.buttons.schedule_time", lang),
+                    callback_data="prefs_schedule_time",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
                     text=t("profile.buttons.change_language", lang),
                     callback_data="prefs_lang_menu",
                 ),

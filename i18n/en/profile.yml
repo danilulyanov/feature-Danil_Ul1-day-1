@@ -55,10 +55,14 @@ profile:
   llm_delete_warning: 'Failed to delete message with LLM settings.'
   llm_menu: "<b>LLM Settings</b>\nModel: {model}\nBase URL: {base_url}\nAPI Key: {api_key}"
   llm_menu_empty: "<b>LLM Settings</b>\nNot configured yet. Tap Edit to add them."
-  preferences_view: 'Language: {language}'
+  preferences_view: "Language: {language}\nVacancy delivery time: {vacancy_time}"
   preferences_lang_prompt: 'Choose bot language:'
   preferences_lang_saved: 'Language updated to {language}.'
   preferences_lang_invalid: 'Unsupported language.'
+  preferences_schedule_prompt: "Send time for new vacancies (HH:MM, 24h). Send 'clear' to remove."
+  preferences_schedule_invalid: "Time must be in HH:MM (00:00–23:59). Try again or send 'clear'."
+  preferences_schedule_saved: 'Delivery time saved: {time}.'
+  preferences_schedule_cleared: 'Delivery time removed.'
   search_filters:
     min_salary: '- Min salary: {value}'
     remote: '- Remote only: {state}'
@@ -85,6 +89,7 @@ profile:
     clear_experience: '🧹 Clear experience'
     back: '⬅️ Back'
     change_language: '🌐 Change language'
+    schedule_time: '⏰ Delivery time'
     edit_city: '🏙️ Edit City'
     edit_position: '🎯 Edit Position'
     edit_name: '🪪 Edit Name'
